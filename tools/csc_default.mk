@@ -4,6 +4,7 @@ OSTYPE := $(shell bash -c 'case "$$OSTYPE" in (cygwin*|win*) echo win;; (*) echo
 ifeq ($(OSTYPE),win)
   CSC := csc
   CSFLAGS := -r:'System.dll'
+  BIN_EXT = .exe
 else
   CSC := $(shell which mcs 2>/dev/null)
   ifeq ($(CSC),)
