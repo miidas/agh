@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ github_actions ]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+    - name: Install uglifyjs
+      run: sudo apt install uglifyjs
+    - name: Make
+      run: make
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: agh-package
+        path: out/
