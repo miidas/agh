@@ -37,18 +37,18 @@ all: make-unidata
 make-unidata: | submodule
 	+make -C ext/unidata
 
-all: $(OUTDIR)/ttf2eot$(BIN_EXT)
-$(OUTDIR)/ttf2eot$(BIN_EXT): ext/ttf2eot/ttf2eot$(BIN_EXT)
+all: $(OUTDIR)/ttf2eot
+$(OUTDIR)/ttf2eot: ext/ttf2eot/ttf2eot
 	cp $< $@
-ext/ttf2eot/ttf2eot$(BIN_EXT): | submodule ext/ttf2eot/.gitignore
+ext/ttf2eot/ttf2eot: | submodule ext/ttf2eot/.gitignore
 	+make -C ext/ttf2eot
 ext/ttf2eot/.gitignore: | submodule
-	printf '%s\n' /.gitignore *.o /ttf2eot /ttf2eot.exe > $@
+	printf '%s\n' /.gitignore *.o /ttf2eot /ttf2eot > $@
 
-all: $(OUTDIR)/sfnt2woff$(BIN_EXT)
-$(OUTDIR)/sfnt2woff$(BIN_EXT): ext/woff/sfnt2woff$(BIN_EXT)
+all: $(OUTDIR)/sfnt2woff
+$(OUTDIR)/sfnt2woff: ext/woff/sfnt2woff
 	cp $< $@
-ext/woff/sfnt2woff$(BIN_EXT): | ext/woff
+ext/woff/sfnt2woff: | ext/woff
 	+make -C ext/woff
 ext/woff:
 	mkdir -p $@ && cd $@ && unzip ../woff-code-latest.zip
