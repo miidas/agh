@@ -15,8 +15,10 @@ jobs:
       run: sudo apt install uglifyjs
     - name: Make
       run: make
+    - name: Get last commit hash
+      run: echo "::set-env name=LAST_COMMIT_HASH::$(git log --format='%h' -n 1)"
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: agh-package
+        name: agh-package-${{ env.LAST_COMMIT_HASH }}
         path: out/
